@@ -62,4 +62,4 @@ Ein Klick darauf aktiviert den Modus für die aktuelle Sitzung. Das Modul blocki
 ---
 
 ## 📝 Lizenz
-Dieses Modul ist Open-Source und steht unter der [MIT Lizenz](LICENSE).
+Dieses Modul ist Open-Source und steht unter der [General Public License]
