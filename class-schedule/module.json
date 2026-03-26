@@ -1,0 +1,18 @@
+{
+    "id": "class-schedule",
+    "name": "Unterrichtsplaner",
+    "description": "Grafischer Stundenplan, Ferienverwaltung und dynamische Lektionsberechnung.",
+    "version": "1.0.0",
+    "humhub": {
+        "minVersion": "1.14.0"
+    },
+    "dependencies": {
+        "calendar": "*"
+    },
+    "authors": [
+        {
+            "name": "Dein Name",
+            "email": "deine@email.ch"
+        }
+    ]
+}
