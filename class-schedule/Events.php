@@ -21,6 +21,18 @@ class Events
         $end = clone $event->end;
         $container = $event->contentContainer;
 
+        // --- NEU: Der Türsteher ---
+        // 1. Wenn der Container ein Benutzerprofil ist, haben wir hier nichts zu suchen!
+        if ($container instanceof \humhub\modules\user\models\User) {
+            return;
+        }
+
+        // 2. Wenn es ein Space ist, prüfen wir sauber, ob das Modul aktiviert ist
+        if ($container instanceof \humhub\modules\space\models\Space && !$container->isModuleEnabled('class-schedule')) {
+            return;
+        }
+        // --------------------------
+
         if ($container === null || !$container->isModuleEnabled('class-schedule')) {
             return; 
         }
