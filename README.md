@@ -1,65 +1,65 @@
-# HumHub Class Schedule (Stundenplan) 🏫
+# HumHub Class Schedule 🏫
 
 *A comprehensive timetable and lesson planning module for HumHub. Features include global school year management, space-level class schedules, granular visibility permissions for teacher teams, and a safe presentation mode.*
 
-Das **Class Schedule** Modul verwandelt HumHub in eine vollwertige, digitale Planungsplattform für Schulen und Bildungseinrichtungen. Es ermöglicht Lehrkräften, Stundenpläne direkt in den Klassenzimmer-Spaces zu verwalten, den Unterricht im Team kollaborativ vorzubereiten und Termine nahtlos mit dem HumHub-Kalender zu synchronisieren.
+The **Class Schedule** module transforms HumHub into a full-fledged digital planning platform for schools and educational institutions. It allows teachers to manage timetables directly within classroom spaces, prepare lessons collaboratively as a team, and sync appointments seamlessly with the HumHub calendar.
 
 ---
 
-## ✨ Hauptfunktionen
+## ✨ Key Features
 
-* **Globale Strukturdaten:** Zentrale Verwaltung von Unterrichtszeiten (Raster), Schuljahren und Ferienblöcken durch den Netzwerk-Administrator.
-* **Space-spezifische Stundenpläne:** Jede Klasse (bzw. jeder Space) erhält einen eigenen Stundenplan.
-* **Kollaborative Unterrichtsvorbereitung:** Lehrpersonen können zu jeder Lektion tagesaktuelle Planungen, Notizen und Hausaufgaben hinterlegen.
-* **Smarte Kalender-Integration:** Das Modul integriert sich nativ in das HumHub `calendar` Modul. Es berechnet automatisch die aktuelle Schulwoche (SW) sowie die Kalenderwoche (KW) und trägt Ferien als Ganztages-Events ein.
-* **Granulare Sichtbarkeiten:** Über die Space-Einstellungen lässt sich genau definieren, wer die Unterrichtsplanung sehen darf (z. B. nur die Gruppe "Lehrpersonen"). Schüler sehen im Kalender weiterhin die Ferien und Schulwochen, aber keine internen Lehrer-Notizen.
-* **📽️ Beamer-Modus:** Ein innovativer, serverseitiger Präsentationsmodus. Mit einem Klick auf den schwebenden Button im Kalender werden alle Unterrichtsfächer sofort ausgeblendet. Der Kalender kann so sicher an die Wand projiziert werden, ohne sensible Vorbereitungsdaten zu leaken.
+* **Global Structural Data:** Centralized management of lesson periods (grids), school years, and holiday blocks by the network administrator.
+* **Space-Specific Schedules:** Every class (or space) receives its own dedicated timetable.
+* **Collaborative Lesson Planning:** Teachers can store daily plans, notes, and homework for every individual lesson.
+* **Smart Calendar Integration:** The module integrates natively with the HumHub `calendar` module. It automatically calculates the current school week (SW) and calendar week (CW), and enters holidays as all-day events.
+* **Granular Visibility:** Space settings allow you to define exactly who can see the lesson planning (e.g., only the "Teachers" group). Students still see holidays and school weeks in the calendar, but internal teacher notes remain hidden.
+* **📽️ Beamer Mode (Presentation Mode):** An innovative, server-side presentation mode. With one click on the floating button in the calendar, all lesson subjects are immediately hidden. This allows the calendar to be safely projected onto a wall without leaking sensitive preparation data.
 
 ---
 
 ## ⚙️ Installation
 
-1. Lade das Modul herunter oder klone das Repository.
-2. Verschiebe den Ordner `class-schedule` in das Modul-Verzeichnis deiner HumHub-Installation:  
-   `protected/modules/class-schedule`
-3. Logge dich als Administrator in HumHub ein.
-4. Navigiere zu **Administration -> Module**.
-5. Klicke beim Modul "Class Schedule" auf **Installieren** und anschließend auf **Aktivieren**.
+1.  Download the module or clone the repository.
+2.  Move the `class-schedule` folder into the modules directory of your HumHub installation:  
+    `protected/modules/class-schedule`
+3.  Log in to HumHub as an administrator.
+4.  Navigate to **Administration -> Modules**.
+5.  Click **Install** for the "Class Schedule" module and then **Activate**.
 
 ---
 
-## 🚀 Erste Schritte (Quick Start)
+## 🚀 Quick Start
 
-### 1. Globale Einrichtung (Admin)
-Bevor das Modul in den Spaces genutzt werden kann, müssen die globalen Rahmenbedingungen geschaffen werden:
-* Gehe zu **Administration -> Stundenplan**.
-* Lege mindestens ein **Schuljahr** an (Start- und Enddatum).
-* Definiere die **Unterrichtszeiten** (z. B. 1. Lektion: 07:30 - 08:15).
-* (Optional) Trage globale **Ferien** ein.
+### 1. Global Setup (Admin)
+Before the module can be used in spaces, the global framework must be established:
+* Go to **Administration -> Class Schedule**.
+* Create at least one **School Year** (start and end date).
+* Define the **Lesson Periods** (e.g., 1st Period: 07:30 - 08:15).
+* (Optional) Enter global **Holidays**.
 
-### 2. Space-Einrichtung (Lehrkraft / Space-Admin)
-* Gehe in den gewünschten Space (z. B. "Klasse 8b").
-* Aktiviere das Modul unter **Space -> Module**.
-* Klicke im Stundenplan oben rechts auf das **Zahnrad-Symbol** (Konfigurieren). Wähle hier die Benutzergruppe aus, die berechtigt ist, den Unterricht im Kalender zu sehen.
+### 2. Space Setup (Teacher / Space Admin)
+* Go to the desired space (e.g., "Class 8b").
+* Activate the module under **Space Settings -> Modules**.
+* Click the **Gear Icon** (Configure) in the top right of the Class Schedule view. Select the user group authorized to see the lessons in the calendar.
 
-### 3. Stundenplan befüllen
-* Wähle im Dropdown das aktuelle Schuljahr aus.
-* Klicke in den leeren Feldern auf **Fach eintragen** und definiere Fachname und Farbe.
-
----
-
-## 💡 Der Beamer-Modus
-Wenn du den Space-Kalender aufrufst, erscheint unten links ein schwebender Button (**Beamer: AUS**). 
-Ein Klick darauf aktiviert den Modus für die aktuelle Sitzung. Das Modul blockiert nun serverseitig die Übertragung aller Unterrichts-Lektionen an den Kalender. Du kannst den Kalender nun bedenkenlos über einen Beamer mit der Klasse teilen. Ein weiterer Klick deaktiviert den Modus wieder.
+### 3. Filling the Schedule
+* Select the current school year from the dropdown menu.
+* Click on the empty fields to **Add Subject** and define the subject name and color.
 
 ---
 
-## 🛠️ Systemvoraussetzungen
-* HumHub Version 1.15 oder höher
-* Aktiviertes offizielles HumHub `calendar` Modul
-* PHP 8.0 oder höher
+## 💡 Beamer Mode
+When you open the space calendar, a floating button appears in the bottom left (**Beamer: OFF**). 
+Clicking it activates the mode for the current session. The module then blocks the server-side transmission of all lesson entries to the calendar. You can now share the calendar via a projector with the class without any concerns. Another click deactivates the mode.
 
 ---
 
-## 📝 Lizenz
-Dieses Modul ist Open-Source und steht unter der [General Public License]
+## 🛠️ System Requirements
+* HumHub Version 1.15 or higher
+* Activated official HumHub `calendar` module
+* PHP 8.0 or higher
+
+---
+
+## 📝 License
+This module is open-source and licensed under the [General Public License].
