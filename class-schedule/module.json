@@ -1,8 +1,9 @@
 {
     "id": "class-schedule",
-    "name": "Unterrichtsplaner",
-    "description": "Grafischer Stundenplan, Ferienverwaltung und dynamische Lektionsberechnung.",
-    "version": "1.0.0",
+    "version": "1.6",
+    "name": "Class Schedule",
+    "description": "Graphical timetable, holidays management and dynamic lesson calculation.",
+    "licence": "GPL-2.0",
     "humhub": {
         "minVersion": "1.14.0"
     },
@@ -11,8 +12,9 @@
     },
     "authors": [
         {
-            "name": "Dein Name",
-            "email": "deine@email.ch"
+            "name": "Michael Walder",
+            "email": "walder@didaktis.ch",
+            "role": "Developer"
         }
     ]
 }

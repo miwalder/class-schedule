@@ -40,10 +40,10 @@ class TimetableEntry extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'weekday' => 'Wochentag',
-            'lesson_time_id' => 'Lektion',
-            'subject' => 'Fach / Klasse (z.B. Mathe 3b)',
-            'color' => 'Farbe',
+            'weekday' => \Yii::t('ClassScheduleModule.base', 'Weekday'),
+            'lesson_time_id' => \Yii::t('ClassScheduleModule.base', 'Lesson'),
+            'subject' => \Yii::t('ClassScheduleModule.base', 'Subject / Class (e.g. Math 3b)'),
+            'color' => \Yii::t('ClassScheduleModule.base', 'Color'),
         ];
     }
 

@@ -115,7 +115,7 @@ class TimetableController extends ContentContainerController
         ]);
 
         if (!$entry) {
-            throw new \yii\web\HttpException(404, 'Fach nicht gefunden.');
+            throw new \yii\web\HttpException(404, \Yii::t('ClassScheduleModule.base', 'Subject not found.'));
         }
 
         // 2. Den Plan für genau dieses Datum suchen... oder einen neuen, leeren erstellen

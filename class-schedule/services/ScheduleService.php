@@ -36,6 +36,22 @@ class ScheduleService
     }
 
     /**
+     * Gibt das zutreffende Ferien-Objekt für ein bestimmtes Datum zurück
+     */
+    public static function getHolidayByDate(DateTime $date, $schoolYearId = null)
+    {
+        $query = Holiday::find()
+            ->where(['<=', 'start_date', $date->format('Y-m-d')])
+            ->andWhere(['>=', 'end_date', $date->format('Y-m-d')]);
+
+        if ($schoolYearId) {
+            $query->andWhere(['school_year_id' => $schoolYearId]);
+        }
+
+        return $query->one();
+    }
+
+    /**
      * 3. Berechnet die aktuelle Schulwoche (Zähler ohne Ferienwochen)
      */
     public static function getSchoolWeekNumber(DateTime $targetDate)

@@ -22,6 +22,11 @@ return [
             'class' => 'humhub\modules\space\widgets\Header',
             'event' => 'init',
             'callback' => ['humhub\modules\class_schedule\Events', 'onSpaceHeaderInit']
+        ],
+        [
+            'class' => 'humhub\widgets\LayoutAddons',
+            'event' => 'init',
+            'callback' => ['humhub\modules\class_schedule\Events', 'onLayoutAddonsInit']
         ]
     ],
 ];

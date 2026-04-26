@@ -10,50 +10,50 @@ use yii\widgets\ActiveForm;
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        Unterrichtsplaner <strong>Zeitraster (Lektionen & Pausen)</strong>
+        <?= Yii::t('ClassScheduleModule.base', 'Class Schedule <strong>Time raster (Lessons & Breaks)</strong>') ?>
     </div>
 
     <div class="panel-body">
-        <?= Html::a('<i class="fa fa-arrow-left"></i> Zurück zu den Schuljahren', ['index'], ['class' => 'btn btn-default', 'data-ui-loader' => '']) ?>
+        <?= Html::a('<i class="fa fa-arrow-left"></i> ' . Yii::t('ClassScheduleModule.base', 'Back to school years'), ['index'], ['class' => 'btn btn-default', 'data-ui-loader' => '']) ?>
         <hr>
 
-        <h4>Neuen Block hinzufügen</h4>
+        <h4><?= Yii::t('ClassScheduleModule.base', 'Add new block') ?></h4>
         
         <?php $form = ActiveForm::begin(); ?>
 
         <?= $form->field($model, 'title')->textInput([
             'maxlength' => true, 
-            'placeholder' => 'z.B. 1. Lektion'
+            'placeholder' => Yii::t('ClassScheduleModule.base', 'e.g. 1st lesson')
         ]) ?>
 
-        <div class="row">
+        <div class="row mt-3 mb-3">
             <div class="col-md-6">
-                <?= $form->field($model, 'start_time')->textInput(['type' => 'time']) ?>
+                <?= $form->field($model, 'start_time')->widget(\humhub\modules\ui\form\widgets\TimePicker::class) ?>
             </div>
             <div class="col-md-6">
-                <?= $form->field($model, 'end_time')->textInput(['type' => 'time']) ?>
+                <?= $form->field($model, 'end_time')->widget(\humhub\modules\ui\form\widgets\TimePicker::class) ?>
             </div>
         </div>
 
         <div class="form-group">
-            <?= Html::submitButton('Block speichern', ['class' => 'btn btn-success', 'data-ui-loader' => '']) ?>
+            <?= Html::submitButton(Yii::t('ClassScheduleModule.base', 'Save block'), ['class' => 'btn btn-success', 'data-ui-loader' => '']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
 
         <br>
-        <h4>Aktuelles Zeitraster</h4>
+        <h4><?= Yii::t('ClassScheduleModule.base', 'Current time raster') ?></h4>
         <hr>
         
         <?php if (empty($lessonTimes)): ?>
-            <p>Noch kein Zeitraster angelegt.</p>
+            <p><?= Yii::t('ClassScheduleModule.base', 'No time raster created yet.') ?></p>
         <?php else: ?>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Zeit</th>
-                        <th>Bezeichnung</th>
-                        <th style="width: 80px;">Aktion</th>
+                        <th><?= Yii::t('ClassScheduleModule.base', 'Time') ?></th>
+                        <th><?= Yii::t('ClassScheduleModule.base', 'Title') ?></th>
+                        <th style="width: 80px;"><?= Yii::t('ClassScheduleModule.base', 'Action') ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,7 +67,7 @@ use yii\widgets\ActiveForm;
                                 <?= Html::a('<i class="fa fa-trash"></i>', ['delete-lesson-time', 'id' => $lesson->id], [
                                     'class' => 'btn btn-sm btn-danger',
                                     'data-method' => 'POST',
-                                    'data-confirm' => 'Diesen Block wirklich löschen?'
+                                    'data-confirm' => Yii::t('ClassScheduleModule.base', 'Really delete this block?')
                                 ]) ?>
                             </td>
                         </tr>

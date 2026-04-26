@@ -6,31 +6,31 @@ use yii\helpers\Html;
 /* @var $grid array */
 
 $weekdays = [
-    1 => 'Montag',
-    2 => 'Dienstag',
-    3 => 'Mittwoch',
-    4 => 'Donnerstag',
-    5 => 'Freitag'
+    1 => Yii::t('ClassScheduleModule.base', 'Monday'),
+    2 => Yii::t('ClassScheduleModule.base', 'Tuesday'),
+    3 => Yii::t('ClassScheduleModule.base', 'Wednesday'),
+    4 => Yii::t('ClassScheduleModule.base', 'Thursday'),
+    5 => Yii::t('ClassScheduleModule.base', 'Friday')
 ];
 ?>
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        Unterrichtsplaner <strong>Standardwoche (Template)</strong>
+        <?= Yii::t('ClassScheduleModule.base', 'Lesson planner') ?> <strong><?= Yii::t('ClassScheduleModule.base', 'Standard week (Template)') ?></strong>
     </div>
 
     <div class="panel-body">
-        <?= Html::a('<i class="fa fa-arrow-left"></i> Zurück zur Übersicht', ['index'], ['class' => 'btn btn-default', 'data-ui-loader' => '']) ?>
+        <?= Html::a('<i class="fa fa-arrow-left"></i> ' . Yii::t('ClassScheduleModule.base', 'Back to overview'), ['index'], ['class' => 'btn btn-default', 'data-ui-loader' => '']) ?>
         <hr>
 
         <?php if (empty($lessonTimes)): ?>
-            <div class="alert alert-warning">Bitte lege zuerst unter "Zeitraster konfigurieren" deine Lektionen an!</div>
+            <div class="alert alert-warning"><?= Yii::t('ClassScheduleModule.base', 'Please create your lessons first under "Configure time grid"!') ?></div>
         <?php else: ?>
             <div class="table-responsive">
                 <table class="table table-bordered text-center">
                     <thead>
                         <tr class="bg-info">
-                            <th class="text-center">Zeit</th>
+                            <th class="text-center"><?= Yii::t('ClassScheduleModule.base', 'Time') ?></th>
                             <?php foreach ($weekdays as $dayName): ?>
                                 <th class="text-center"><?= $dayName ?></th>
                             <?php endforeach; ?>
@@ -59,7 +59,7 @@ $weekdays = [
                                                     <?= Html::a('<i class="fa fa-trash"></i>', ['delete-entry', 'id' => $entry->id], [
                                                         'class' => 'btn btn-xs btn-danger',
                                                         'data-method' => 'POST',
-                                                        'data-confirm' => 'Eintrag löschen?'
+                                                        'data-confirm' => Yii::t('ClassScheduleModule.base', 'Delete entry?')
                                                     ]) ?>
                                                 </div>
                                             </div>

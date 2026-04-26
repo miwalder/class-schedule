@@ -11,12 +11,12 @@
        }
 
        public function attributeLabels() {
-           return ['teacher_group_id' => 'Berechtigung: Wer darf den Unterricht (Fächer) im Kalender sehen?'];
+           return ['teacher_group_id' => \Yii::t('ClassScheduleModule.base', 'Permission: Who can see the lessons (subjects) in the calendar?')];
        }
 
        public function getGroupOptions() {
            $groups = Group::find()->all();
-           $options = ['' => '--- Keine Einschränkung (Alle Space-Mitglieder) ---'];
+           $options = ['' => \Yii::t('ClassScheduleModule.base', '--- No restriction (All space members) ---')];
            foreach ($groups as $group) {
                $options[$group->id] = $group->name;
            }

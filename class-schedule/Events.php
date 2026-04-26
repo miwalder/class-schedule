@@ -74,12 +74,13 @@ class Events
         $addedWeeks = [];
         $holidayStart = null;
         $holidayEnd = null;
+        $currentHolidayName = null;
 
-        $closeHolidayBlock = function($hStart, $hEnd) use (&$calendarItems) {
+        $closeHolidayBlock = function($hStart, $hEnd, $hName) use (&$calendarItems) {
             if ($hStart !== null) {
                 $item = new \humhub\modules\class_schedule\models\LessonCalendarItem();
                 $item->id = 'holiday_' . $hStart->format('Y-m-d');
-                $item->title = '🏖️ Ferien';
+                $item->title = $hName ? '🏖️ ' . $hName : Yii::t('ClassScheduleModule.base', '🏖️ Holidays');
                 $item->color = '#2ecc71'; 
                 
                 $item->start = clone $hStart;
@@ -110,16 +111,23 @@ class Events
             }
 
             // 1. Ferien-Logik
-            if (ScheduleService::isDateInHoliday($date)) {
+            $holiday = ScheduleService::getHolidayByDate($date);
+            if ($holiday !== null) {
                 if ($holidayStart === null) {
                     $holidayStart = clone $date;
+                    $currentHolidayName = $holiday->name;
+                } elseif ($currentHolidayName !== $holiday->name) {
+                    $closeHolidayBlock($holidayStart, $holidayEnd, $currentHolidayName);
+                    $holidayStart = clone $date;
+                    $currentHolidayName = $holiday->name;
                 }
                 $holidayEnd = clone $date;
                 continue; 
             } else {
                 if ($holidayStart !== null) {
-                    $closeHolidayBlock($holidayStart, $holidayEnd);
+                    $closeHolidayBlock($holidayStart, $holidayEnd, $currentHolidayName);
                     $holidayStart = null;
+                    $currentHolidayName = null;
                 }
             }
 
@@ -136,7 +144,7 @@ class Events
 
                 $weekItem = new \humhub\modules\class_schedule\models\LessonCalendarItem();
                 $weekItem->id = 'week_' . $weekNumber . '_' . $monday->format('Y');
-                $weekItem->title = 'SW: ' . $weekNumber . ' / KW: ' . $date->format('W');
+                $weekItem->title = Yii::t('ClassScheduleModule.base', 'SW') . ': ' . $weekNumber . ' / ' . Yii::t('ClassScheduleModule.base', 'CW') . ': ' . $date->format('W');
                 $weekItem->color = '#95a5a6'; 
                 
                 $weekItem->start = clone $monday;
@@ -184,7 +192,7 @@ class Events
         }
 
         if ($holidayStart !== null) {
-            $closeHolidayBlock($holidayStart, $holidayEnd ?? $holidayStart);
+            $closeHolidayBlock($holidayStart, $holidayEnd ?? $holidayStart, $currentHolidayName);
         }
 
         $event->addItems('class-schedule', $calendarItems);
@@ -204,7 +212,7 @@ class Events
 
         if ($space->isModuleEnabled('class-schedule')) {
             $event->sender->addItem([
-                'label' => 'Stundenplan',
+                'label' => Yii::t('ClassScheduleModule.base', 'Class Schedule'),
                 'url' => $space->createUrl('/class-schedule/timetable/index'),
                 'icon' => '<i class="fa fa-chalkboard-user"></i>',
                 'isActive' => (\Yii::$app->controller->module && \Yii::$app->controller->module->id == 'class-schedule'),
@@ -249,7 +257,7 @@ class Events
         $currentState = \Yii::$app->session->get('cs_beamer_mode', false);
         $btnBg = $currentState ? '#e74c3c' : '#2c3e50';
         $btnIcon = $currentState ? 'fa-eye' : 'fa-video-camera';
-        $btnText = $currentState ? 'Lektionen zeigen' : 'Beamer-Modus';
+        $btnText = $currentState ? Yii::t('ClassScheduleModule.base', 'Show lessons') : Yii::t('ClassScheduleModule.base', 'Beamer Mode');
         $toggleUrl = $space->createUrl('/class-schedule/timetable/toggle-beamer');
 
         $js = <<<JS
@@ -288,8 +296,14 @@ JS;
     public static function onGetCalendarItemTypes($event)
     {
         $event->addType('class-schedule', [
-            'title' => 'Stundenplan',
+            'title' => Yii::t('ClassScheduleModule.base', 'Class Schedule'),
             'color' => '#3498db', // Muss zur Farbe in der DB passen
         ]);
+    }
+
+    public static function onLayoutAddonsInit($event)
+    {
+        // This fully mutes the HumHub AM/PM native time text appended onto our specifically targeted custom items!
+        \Yii::$app->view->registerCss('.cs-hide-time .fc-time { display: none !important; }');
     }
 }

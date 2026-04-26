@@ -37,10 +37,10 @@ class LessonTime extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Bezeichnung (z.B. 1. Lektion oder Grosse Pause)',
-            'start_time' => 'Startzeit',
-            'end_time' => 'Endzeit',
-            'sort_order' => 'Sortierung',
+            'title' => \Yii::t('ClassScheduleModule.base', 'Title (e.g. 1st lesson or long break)'),
+            'start_time' => \Yii::t('ClassScheduleModule.base', 'Start time'),
+            'end_time' => \Yii::t('ClassScheduleModule.base', 'End time'),
+            'sort_order' => \Yii::t('ClassScheduleModule.base', 'Sort order'),
         ];
     }
 }

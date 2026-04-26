@@ -75,7 +75,7 @@ class LessonCalendarItem extends \yii\base\BaseObject implements CalendarEventIF
         // Gibt einen Dummy-Aufruf auf den Kalendertypen zurück
         return new \humhub\modules\calendar\models\CalendarEntryType([
             'id' => 'class-schedule', 
-            'name' => 'Stundenplan', 
+            'name' => \Yii::t('ClassScheduleModule.base', 'Timetable'), 
             'color' => $this->color
         ]);
     }
@@ -94,8 +94,9 @@ class LessonCalendarItem extends \yii\base\BaseObject implements CalendarEventIF
 
     public function getCalendarOptions() {
         return [
-            'classNames' => ['cs-hide-in-beamer'],
-            'className' => 'cs-hide-in-beamer'
+            'classNames' => ['cs-hide-in-beamer', 'cs-hide-time'],
+            'className' => 'cs-hide-in-beamer cs-hide-time',
+            'displayEventTime' => false
         ];
     }
 

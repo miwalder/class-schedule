@@ -26,8 +26,21 @@ class Module extends ContentContainerModule
      */
     public function disable()
     {
-        Yii::$app->settings->remove('class-schedule');
+        Yii::$app->settings->delete('class-schedule');
         parent::disable();
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function enableContentContainer(ContentContainerActiveRecord $container)
+    {
+        if ($container instanceof \humhub\modules\space\models\Space) {
+            if (!$container->moduleManager->isEnabled('calendar')) {
+                $container->moduleManager->enable('calendar');
+            }
+        }
+        parent::enableContentContainer($container);
     }
     
     /**

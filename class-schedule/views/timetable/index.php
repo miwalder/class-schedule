@@ -17,7 +17,7 @@ $this->registerJs("
     });
 ");
 
-$weekdays = [1 => 'Montag', 2 => 'Dienstag', 3 => 'Mittwoch', 4 => 'Donnerstag', 5 => 'Freitag'];
+$weekdays = [1 => Yii::t('ClassScheduleModule.base', 'Monday'), 2 => Yii::t('ClassScheduleModule.base', 'Tuesday'), 3 => Yii::t('ClassScheduleModule.base', 'Wednesday'), 4 => Yii::t('ClassScheduleModule.base', 'Thursday'), 5 => Yii::t('ClassScheduleModule.base', 'Friday')];
 ?>
 
 <div class="panel panel-default">
@@ -25,41 +25,41 @@ $weekdays = [1 => 'Montag', 2 => 'Dienstag', 3 => 'Mittwoch', 4 => 'Donnerstag',
         <?php if (!empty($schoolYears)): ?>
             <div class="pull-right" style="display: flex; align-items: center; margin-top: -5px;">
                 
-                <select id="school-year-dropdown" class="form-control input-sm" style="width: auto; margin-right: 10px;">
+                <select id="school-year-dropdown" class="form-control input-sm" style="width: auto; min-width: 220px; margin-right: 10px; padding-right: 30px;">
                     <?php foreach ($schoolYears as $sy): ?>
                         <?php $url = $space->createUrl('/class-schedule/timetable/index', ['school_year_id' => $sy->id]); ?>
                         <option value="<?= $url ?>" <?= ($sy->id == $selectedSchoolYearId) ? 'selected' : '' ?>>
-                            Stundenplan: <?= Html::encode($sy->name) ?> 
+                            <?= Yii::t('ClassScheduleModule.base', 'Schedule:') ?> <?= Html::encode($sy->name) ?> 
                         </option>
                     <?php endforeach; ?>
                 </select>
                 
-                <a href="<?= $space->createUrl('/class-schedule/timetable/config') ?>" class="btn btn-default btn-sm" title="Berechtigungen anpassen">
+                <a href="<?= $space->createUrl('/class-schedule/timetable/config') ?>" class="btn btn-default btn-sm" title="<?= Yii::t('ClassScheduleModule.base', 'Adjust permissions') ?>">
                     <i class="fa fa-cog"></i>
                 </a>
                 
             </div>
         <?php endif; ?>
 
-        <strong>Stundenplan</strong> für <?= Html::encode($space->name) ?>
+        <strong><?= Yii::t('ClassScheduleModule.base', 'Schedule') ?></strong> <?= Yii::t('ClassScheduleModule.base', 'for') ?> <?= Html::encode($space->name) ?>
     </div>
     
     <div class="panel-body">
         
         <?php if (empty($schoolYears)): ?>
             <div class="alert alert-danger">
-                <strong>Halt!</strong> Es wurden noch keine globalen Schuljahre angelegt. Bitte erstelle zuerst ein Schuljahr in den globalen Einstellungen.
+                <strong><?= Yii::t('ClassScheduleModule.base', 'Stop!') ?></strong> <?= Yii::t('ClassScheduleModule.base', 'No global school years have been created yet. Please create a school year in the global settings first.') ?>
             </div>
         <?php elseif (empty($lessonTimes)): ?>
             <div class="alert alert-warning">
-                <strong>Achtung:</strong> Es wurden noch keine globalen Unterrichtszeiten angelegt!
+                <strong><?= Yii::t('ClassScheduleModule.base', 'Attention:') ?></strong> <?= Yii::t('ClassScheduleModule.base', 'No global lesson times have been created yet!') ?>
             </div>
         <?php else: ?>
             <div class="table-responsive">
                 <table class="table table-bordered text-center">
                     <thead>
                         <tr class="active">
-                            <th>Zeit</th>
+                            <th><?= Yii::t('ClassScheduleModule.base', 'Time') ?></th>
                             <?php foreach ($weekdays as $dayName): ?>
                                 <th class="text-center"><?= $dayName ?></th>
                             <?php endforeach; ?>
@@ -80,10 +80,10 @@ $weekdays = [1 => 'Montag', 2 => 'Dienstag', 3 => 'Mittwoch', 4 => 'Donnerstag',
                                             <div style="background-color: <?= Html::encode($entry->color) ?>; color: white; padding: 8px; border-radius: 4px; margin-bottom: 5px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
                                                 <strong><?= Html::encode($entry->subject) ?></strong>
                                             </div>
-                                            <a href="<?= $space->createUrl('/class-schedule/timetable/edit', ['lesson_time_id' => $time->id, 'weekday' => $dayNum, 'school_year_id' => $selectedSchoolYearId]) ?>" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Ändern</a>
+                                            <a href="<?= $space->createUrl('/class-schedule/timetable/edit', ['lesson_time_id' => $time->id, 'weekday' => $dayNum, 'school_year_id' => $selectedSchoolYearId]) ?>" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> <?= Yii::t('ClassScheduleModule.base', 'Change') ?></a>
                                         
                                         <?php else: ?>
-                                            <a href="<?= $space->createUrl('/class-schedule/timetable/edit', ['lesson_time_id' => $time->id, 'weekday' => $dayNum, 'school_year_id' => $selectedSchoolYearId]) ?>" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> Fach eintragen</a>
+                                            <a href="<?= $space->createUrl('/class-schedule/timetable/edit', ['lesson_time_id' => $time->id, 'weekday' => $dayNum, 'school_year_id' => $selectedSchoolYearId]) ?>" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> <?= Yii::t('ClassScheduleModule.base', 'Add subject') ?></a>
                                         <?php endif; ?>
 
                                     </td>

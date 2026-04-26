@@ -30,6 +30,29 @@ class ConfigController extends Controller
     }
 
     /**
+     * NEU: Schuljahr löschen
+     */
+    public function actionDeleteSchoolYear($id)
+    {
+        $this->forcePostRequest();
+        
+        $schoolYear = SchoolYear::findOne($id);
+        if ($schoolYear) {
+            // Delete related holidays and timetable entries safely if DB doesn't cascade
+            foreach (Holiday::findAll(['school_year_id' => $schoolYear->id]) as $holiday) {
+                $holiday->delete();
+            }
+            foreach (TimetableEntry::findAll(['school_year_id' => $schoolYear->id]) as $entry) {
+                // If there are LessonPlans related, let them be cascade deleted by DB or HumHub hooks
+                $entry->delete();
+            }
+            $schoolYear->delete();
+        }
+        
+        return $this->redirect(['index']);
+    }
+
+    /**
      * NEU: Die Ansicht für die Ferien eines bestimmten Schuljahres
      */
     public function actionHolidays($id)
@@ -37,7 +60,7 @@ class ConfigController extends Controller
         // Das passende Schuljahr anhand der ID suchen
         $schoolYear = SchoolYear::findOne($id);
         if (!$schoolYear) {
-            throw new \yii\web\HttpException(404, 'Schuljahr nicht gefunden!');
+            throw new \yii\web\HttpException(404, \Yii::t('ClassScheduleModule.base', 'School year not found!'));
         }
 
         // Ein leeres Ferien-Modell vorbereiten und direkt mit dem Schuljahr verknüpfen
@@ -77,6 +100,26 @@ class ConfigController extends Controller
             return $this->redirect(['holidays', 'id' => $schoolYearId]);
         }
         return $this->redirect(['index']);
+    }
+
+    /**
+     * NEU: Ferien bearbeiten
+     */
+    public function actionEditHoliday($id)
+    {
+        $model = Holiday::findOne($id);
+        if (!$model) {
+            throw new \yii\web\HttpException(404, \Yii::t('ClassScheduleModule.base', 'Holidays not found!'));
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->view->saved();
+            return $this->redirect(['holidays', 'id' => $model->school_year_id]);
+        }
+
+        return $this->render('edit-holiday', [
+            'model' => $model,
+        ]);
     }
     /**
      * NEU: Verwaltung des Zeitrasters (Lektionen)
